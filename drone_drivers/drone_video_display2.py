@@ -134,9 +134,9 @@ class DroneVideoDisplay(QtGui.QMainWindow):
                         finally:
                             self.tagLock.release()"""
                             
-                    cv_image = self.bridge.imgmsg_to_cv2(self.image, "bgr8")
-                    cv2.circle(cv_image, (50,50), 10, 255)
-                    cv_image = cv2.resize(cv_image, (640, 480))
+                    cv_image = self.bridge.imgmsg_to_cv2(self.image, "rgb8")
+                    #cv2.circle(cv_image, (50,50), 10, 255)
+                    #cv_image = cv2.resize(cv_image, (640, 480))
                     self.adbClient.send_frame(cv_image)
                     (rows,cols,channels) = cv_image.shape
                     image = QtGui.QPixmap.fromImage(QtGui.QImage(cv_image.data, cols, rows, QtGui.QImage.Format_RGB888))
