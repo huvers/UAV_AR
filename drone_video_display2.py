@@ -10,8 +10,8 @@
 # Import the ROS libraries, and load the manifest file which through <depend package=... /> will give us access to the project dependencies
 import roslib; roslib.load_manifest('ardrone_tutorials')
 import rospy
-import cv
-import cv_bridge
+import cv2
+from cv_bridge import CvBridge
 import time
 
 # Import the two types of messages we're interested in
@@ -100,6 +100,8 @@ class DroneVideoDisplay(QtGui.QMainWindow):
         # Manages picture taking
         self.takePicture = False
         self.cvimage = None
+        
+        self.bridge = CvBridge()
 
 
     # Called every CONNECTION_CHECK_PERIOD ms, if we haven't received anything since the last callback, will assume we are having network troubles and display a message in the status bar
@@ -112,7 +114,7 @@ class DroneVideoDisplay(QtGui.QMainWindow):
             # We have some issues with locking between the display thread and the ros messaging thread due to the size of the image, so we need to lock the resources
             self.imageLock.acquire()
             try:            
-                    # Convert the ROS image into a QImage which we can display
+                    """# Convert the ROS image into a QImage which we can display
                     image = QtGui.QPixmap.fromImage(QtGui.QImage(self.image.data, self.image.width, self.image.height, QtGui.QImage.Format_RGB888))
                     if len(self.tags) > 0:
                         self.tagLock.acquire()
@@ -127,7 +129,13 @@ class DroneVideoDisplay(QtGui.QMainWindow):
                                 painter.drawText((x*image.width())/1000+DETECT_RADIUS,(y*image.height())/1000-DETECT_RADIUS,str(d/100)[0:4]+'m')
                             painter.end()
                         finally:
-                            self.tagLock.release()
+                            self.tagLock.release()"""
+                            
+                    cv_image = self.bridge.imgmsg_to_cv2(self.image, "bgr8")
+                    cv2.circle(cv_image, (50,50), 10, 255)
+                    
+                    (rows,cols,channels) = cv_image.shape
+                    image = QtGui.QPixmap.fromImage(QtGui.QImage(cv_image.data, cols, rows, QtGui.QImage.Format_RGB888))
             finally:
                 self.imageLock.release()
 
@@ -163,7 +171,7 @@ class DroneVideoDisplay(QtGui.QMainWindow):
         self.imageLock.acquire()
         try:
             self.image = data # Save the ros image for processing by the display thread
-            self.cvimage = cv_bridge.CvBridge().imgmsg_to_cv(data, "bgr8")
+            #self.cvimage = cv_bridge.CvBridge().imgmsg_to_cv(data, "bgr8")
         finally:
             self.imageLock.release()
 
