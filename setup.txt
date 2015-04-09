@@ -1,0 +1,16 @@
+Tab:
+    >> roscore
+
+Tab:
+    >> rosrun ardrone_autonomy ardrone_driver
+
+Tab:
+    >> roslaunch openni_launch openni.launch
+
+Tab:
+    >> python keyboard_controller.py
+
+
+Look over the code to see how keys map to commands...
+
+
