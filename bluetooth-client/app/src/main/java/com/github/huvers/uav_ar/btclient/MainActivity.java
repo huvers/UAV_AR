@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.github.RoboVision.R;
@@ -21,6 +23,7 @@ public class MainActivity extends Activity implements BluetoothServerSelector.Co
 
     private BluetoothClient.ConnectionThread mConnection;
     private BluetoothServerSelector mServerSelector;
+    private Button mSendButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,22 @@ public class MainActivity extends Activity implements BluetoothServerSelector.Co
         mServerSelector = new BluetoothServerSelector(this, serviceId, this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ((FrameLayout) findViewById(R.id.frame)).addView(mServerSelector);
+
+        mSendButton = new Button(this);
+        mSendButton.setText("Send message");
+        mSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mConnection != null) {
+                    try {
+                        mConnection.write("Hey".getBytes());
+                    }
+                    catch (IOException e) {
+                        Log.d(TAG, "error writing message");
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -37,21 +56,19 @@ public class MainActivity extends Activity implements BluetoothServerSelector.Co
         Log.d(TAG, "connected");
 
         this.mConnection = connection;
+
+        mServerSelector.setVisibility(View.INVISIBLE);
+        ((FrameLayout) findViewById(R.id.frame)).removeAllViews();
+        ((FrameLayout) findViewById(R.id.frame)).addView(mSendButton);
     }
 
     @Override
     public void onPause() {
         super.onPause();
 
-        if (mConnection != null) {
-            ByteBuffer buffer = ByteBuffer.allocate(24).order(ByteOrder.LITTLE_ENDIAN);
-
-            buffer.putDouble(666);
-            buffer.putDouble(666);
-            buffer.putDouble(666);
-
+        if (this.isFinishing() && mConnection != null) {
             try {
-                mConnection.write(buffer.array());
+                mConnection.write("kthanxbai".getBytes());
             }
             catch (IOException e) {
                 Log.d(TAG, "error writing end signal");
