@@ -5,8 +5,11 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.github.huvers.adb_server.gen.FrameProtos.Frame;
+
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -78,11 +81,13 @@ public class TcpConnection implements Runnable {
         public void run() {
             try {
                 Log.d(TAG, "Reading from client");
-                socketIn = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                while ((line = socketIn.readLine()) != null) {
-                    Log.d(TAG, "Received: " + line);
+                while (client.isConnected()) {
+                    Frame frameMessage = Frame.parseDelimitedFrom(client.getInputStream());
+                    if (frameMessage == null) {
+                        break;
+                    }
+                    Log.d(TAG, "Received: " + frameMessage);
                 }
-                socketIn.close();
                 closeAll();
                 Log.d(TAG, "Finished reading");
             }

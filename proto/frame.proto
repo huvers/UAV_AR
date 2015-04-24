@@ -1,0 +1,8 @@
+package adb_server;
+
+option java_package = "com.github.huvers.adb_server.gen";
+option java_outer_classname = "FrameProtos";
+
+message Frame {
+    optional bytes data = 1;
+}
