@@ -18,7 +18,7 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='frame.proto',
   package='adb_server',
-  serialized_pb=_b('\n\x0b\x66rame.proto\x12\nadb_server\"\x15\n\x05\x46rame\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x42\x1e\n\x1c\x63om.github.huvers.adb_server')
+  serialized_pb=_b('\n\x0b\x66rame.proto\x12\nadb_server\"1\n\x05\x46rame\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12\x0c\n\x04rows\x18\x02 \x01(\x05\x12\x0c\n\x04\x63ols\x18\x03 \x01(\x05\x42/\n com.github.huvers.adb_server.genB\x0b\x46rameProtos')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -39,6 +39,20 @@ _FRAME = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='rows', full_name='adb_server.Frame.rows', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='cols', full_name='adb_server.Frame.cols', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -51,7 +65,7 @@ _FRAME = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=27,
-  serialized_end=48,
+  serialized_end=76,
 )
 
 DESCRIPTOR.message_types_by_name['Frame'] = _FRAME
@@ -65,5 +79,5 @@ _sym_db.RegisterMessage(Frame)
 
 
 DESCRIPTOR.has_options = True
-DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\n\034com.github.huvers.adb_server'))
+DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\n com.github.huvers.adb_server.genB\013FrameProtos'))
 # @@protoc_insertion_point(module_scope)

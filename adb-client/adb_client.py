@@ -45,9 +45,11 @@ def send_capture_data(sock, capture):
     while True:
         ret, frame = capture.read()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        gray = cv2.resize(gray, (640, 400))
 
         frame_message = frame_pb2.Frame()
         frame_message.data = str(gray.data)
+        frame_message.rows, frame_message.cols = gray.shape
         sock.send(delimit_protobuf(frame_message))
 
 

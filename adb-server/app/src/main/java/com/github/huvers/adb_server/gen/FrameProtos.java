@@ -20,6 +20,24 @@ public final class FrameProtos {
      * <code>optional bytes data = 1;</code>
      */
     com.google.protobuf.ByteString getData();
+
+    /**
+     * <code>optional int32 rows = 2;</code>
+     */
+    boolean hasRows();
+    /**
+     * <code>optional int32 rows = 2;</code>
+     */
+    int getRows();
+
+    /**
+     * <code>optional int32 cols = 3;</code>
+     */
+    boolean hasCols();
+    /**
+     * <code>optional int32 cols = 3;</code>
+     */
+    int getCols();
   }
   /**
    * Protobuf type {@code adb_server.Frame}
@@ -78,6 +96,16 @@ public final class FrameProtos {
               data_ = input.readBytes();
               break;
             }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              rows_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              cols_ = input.readInt32();
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -133,8 +161,40 @@ public final class FrameProtos {
       return data_;
     }
 
+    public static final int ROWS_FIELD_NUMBER = 2;
+    private int rows_;
+    /**
+     * <code>optional int32 rows = 2;</code>
+     */
+    public boolean hasRows() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional int32 rows = 2;</code>
+     */
+    public int getRows() {
+      return rows_;
+    }
+
+    public static final int COLS_FIELD_NUMBER = 3;
+    private int cols_;
+    /**
+     * <code>optional int32 cols = 3;</code>
+     */
+    public boolean hasCols() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional int32 cols = 3;</code>
+     */
+    public int getCols() {
+      return cols_;
+    }
+
     private void initFields() {
       data_ = com.google.protobuf.ByteString.EMPTY;
+      rows_ = 0;
+      cols_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -152,6 +212,12 @@ public final class FrameProtos {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, data_);
       }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, rows_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, cols_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -164,6 +230,14 @@ public final class FrameProtos {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, data_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, rows_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, cols_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -284,6 +358,10 @@ public final class FrameProtos {
         super.clear();
         data_ = com.google.protobuf.ByteString.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000001);
+        rows_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        cols_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -316,6 +394,14 @@ public final class FrameProtos {
           to_bitField0_ |= 0x00000001;
         }
         result.data_ = data_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.rows_ = rows_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.cols_ = cols_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -334,6 +420,12 @@ public final class FrameProtos {
         if (other == com.github.huvers.adb_server.gen.FrameProtos.Frame.getDefaultInstance()) return this;
         if (other.hasData()) {
           setData(other.getData());
+        }
+        if (other.hasRows()) {
+          setRows(other.getRows());
+        }
+        if (other.hasCols()) {
+          setCols(other.getCols());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -397,6 +489,70 @@ public final class FrameProtos {
         return this;
       }
 
+      private int rows_ ;
+      /**
+       * <code>optional int32 rows = 2;</code>
+       */
+      public boolean hasRows() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional int32 rows = 2;</code>
+       */
+      public int getRows() {
+        return rows_;
+      }
+      /**
+       * <code>optional int32 rows = 2;</code>
+       */
+      public Builder setRows(int value) {
+        bitField0_ |= 0x00000002;
+        rows_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 rows = 2;</code>
+       */
+      public Builder clearRows() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        rows_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int cols_ ;
+      /**
+       * <code>optional int32 cols = 3;</code>
+       */
+      public boolean hasCols() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional int32 cols = 3;</code>
+       */
+      public int getCols() {
+        return cols_;
+      }
+      /**
+       * <code>optional int32 cols = 3;</code>
+       */
+      public Builder setCols(int value) {
+        bitField0_ |= 0x00000004;
+        cols_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 cols = 3;</code>
+       */
+      public Builder clearCols() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        cols_ = 0;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:adb_server.Frame)
     }
 
@@ -422,9 +578,10 @@ public final class FrameProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013frame.proto\022\nadb_server\"\025\n\005Frame\022\014\n\004da" +
-      "ta\030\001 \001(\014B/\n com.github.huvers.adb_server" +
-      ".genB\013FrameProtos"
+      "\n\013frame.proto\022\nadb_server\"1\n\005Frame\022\014\n\004da" +
+      "ta\030\001 \001(\014\022\014\n\004rows\030\002 \001(\005\022\014\n\004cols\030\003 \001(\005B/\n " +
+      "com.github.huvers.adb_server.genB\013FrameP" +
+      "rotos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -443,7 +600,7 @@ public final class FrameProtos {
     internal_static_adb_server_Frame_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_adb_server_Frame_descriptor,
-        new java.lang.String[] { "Data", });
+        new java.lang.String[] { "Data", "Rows", "Cols", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

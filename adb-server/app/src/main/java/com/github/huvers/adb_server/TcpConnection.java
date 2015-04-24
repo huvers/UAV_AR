@@ -7,13 +7,16 @@ import android.widget.Toast;
 
 import com.github.huvers.adb_server.gen.FrameProtos.Frame;
 
-import java.io.BufferedReader;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfByte;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TcpConnection implements Runnable {
     private static final String TAG = "AR_ADB_SERVER";
@@ -24,12 +27,19 @@ public class TcpConnection implements Runnable {
     private ServerSocket server = null;
     private Context context;
     private Socket client = null;
-    private String line = "";
-    private BufferedReader socketIn;
+    private List<FrameListener> mFrameListeners = new ArrayList<FrameListener>();
 
     public TcpConnection(Context context) {
         this.context = context;
         mHandler = new Handler();
+    }
+
+    public void addFrameListener(FrameListener listener) {
+       mFrameListeners.add(listener);
+    }
+
+    public interface FrameListener {
+        public void onFrameReceived(Mat frame);
     }
 
     @Override
@@ -86,7 +96,13 @@ public class TcpConnection implements Runnable {
                     if (frameMessage == null) {
                         break;
                     }
-                    Log.d(TAG, "Received: " + frameMessage);
+                    Log.d(TAG, "Received: " + frameMessage.getSerializedSize() + " bytes");
+                    Mat frame = new Mat(frameMessage.getRows(), frameMessage.getCols(),
+                            CvType.CV_8UC1);
+                    frame.put(0, 0, frameMessage.getData().toByteArray());
+                    for (FrameListener listener : mFrameListeners) {
+                        listener.onFrameReceived(frame);
+                    }
                 }
                 closeAll();
                 Log.d(TAG, "Finished reading");
