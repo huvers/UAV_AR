@@ -1,3 +1,5 @@
+#!/usr/bin/env python2
+
 import os
 import subprocess
 
@@ -7,7 +9,7 @@ def main():
     java_out = os.path.join(project_root,
                             'adb-server', 'app', 'src', 'main', 'java')
     python_out = os.path.join(project_root,
-                              'adb-client', 'gen')
+                              'adb_client', 'gen')
     subprocess.call(['protoc',
                      '--java_out={}'.format(java_out),
                      '--python_out={}'.format(python_out),
