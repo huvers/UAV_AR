@@ -18,7 +18,7 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='frame.proto',
   package='adb_server',
-  serialized_pb=_b('\n\x0b\x66rame.proto\x12\nadb_server\"1\n\x05\x46rame\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12\x0c\n\x04rows\x18\x02 \x01(\x05\x12\x0c\n\x04\x63ols\x18\x03 \x01(\x05\x42/\n com.github.huvers.adb_server.genB\x0b\x46rameProtos')
+  serialized_pb=_b('\n\x0b\x66rame.proto\x12\nadb_server\"C\n\x05\x46rame\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12\x0c\n\x04rows\x18\x02 \x01(\x05\x12\x0c\n\x04\x63ols\x18\x03 \x01(\x05\x12\x10\n\x08\x63hannels\x18\x04 \x01(\x05\x42/\n com.github.huvers.adb_server.genB\x0b\x46rameProtos')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -53,6 +53,13 @@ _FRAME = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='channels', full_name='adb_server.Frame.channels', index=3,
+      number=4, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -65,7 +72,7 @@ _FRAME = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=27,
-  serialized_end=76,
+  serialized_end=94,
 )
 
 DESCRIPTOR.message_types_by_name['Frame'] = _FRAME

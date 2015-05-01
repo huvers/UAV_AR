@@ -38,6 +38,15 @@ public final class FrameProtos {
      * <code>optional int32 cols = 3;</code>
      */
     int getCols();
+
+    /**
+     * <code>optional int32 channels = 4;</code>
+     */
+    boolean hasChannels();
+    /**
+     * <code>optional int32 channels = 4;</code>
+     */
+    int getChannels();
   }
   /**
    * Protobuf type {@code adb_server.Frame}
@@ -104,6 +113,11 @@ public final class FrameProtos {
             case 24: {
               bitField0_ |= 0x00000004;
               cols_ = input.readInt32();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              channels_ = input.readInt32();
               break;
             }
           }
@@ -191,10 +205,26 @@ public final class FrameProtos {
       return cols_;
     }
 
+    public static final int CHANNELS_FIELD_NUMBER = 4;
+    private int channels_;
+    /**
+     * <code>optional int32 channels = 4;</code>
+     */
+    public boolean hasChannels() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional int32 channels = 4;</code>
+     */
+    public int getChannels() {
+      return channels_;
+    }
+
     private void initFields() {
       data_ = com.google.protobuf.ByteString.EMPTY;
       rows_ = 0;
       cols_ = 0;
+      channels_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -218,6 +248,9 @@ public final class FrameProtos {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeInt32(3, cols_);
       }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, channels_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -238,6 +271,10 @@ public final class FrameProtos {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, cols_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, channels_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -362,6 +399,8 @@ public final class FrameProtos {
         bitField0_ = (bitField0_ & ~0x00000002);
         cols_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
+        channels_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -402,6 +441,10 @@ public final class FrameProtos {
           to_bitField0_ |= 0x00000004;
         }
         result.cols_ = cols_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.channels_ = channels_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -426,6 +469,9 @@ public final class FrameProtos {
         }
         if (other.hasCols()) {
           setCols(other.getCols());
+        }
+        if (other.hasChannels()) {
+          setChannels(other.getChannels());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -553,6 +599,38 @@ public final class FrameProtos {
         return this;
       }
 
+      private int channels_ ;
+      /**
+       * <code>optional int32 channels = 4;</code>
+       */
+      public boolean hasChannels() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional int32 channels = 4;</code>
+       */
+      public int getChannels() {
+        return channels_;
+      }
+      /**
+       * <code>optional int32 channels = 4;</code>
+       */
+      public Builder setChannels(int value) {
+        bitField0_ |= 0x00000008;
+        channels_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 channels = 4;</code>
+       */
+      public Builder clearChannels() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        channels_ = 0;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:adb_server.Frame)
     }
 
@@ -578,10 +656,10 @@ public final class FrameProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013frame.proto\022\nadb_server\"1\n\005Frame\022\014\n\004da" +
-      "ta\030\001 \001(\014\022\014\n\004rows\030\002 \001(\005\022\014\n\004cols\030\003 \001(\005B/\n " +
-      "com.github.huvers.adb_server.genB\013FrameP" +
-      "rotos"
+      "\n\013frame.proto\022\nadb_server\"C\n\005Frame\022\014\n\004da" +
+      "ta\030\001 \001(\014\022\014\n\004rows\030\002 \001(\005\022\014\n\004cols\030\003 \001(\005\022\020\n\010" +
+      "channels\030\004 \001(\005B/\n com.github.huvers.adb_" +
+      "server.genB\013FrameProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -600,7 +678,7 @@ public final class FrameProtos {
     internal_static_adb_server_Frame_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_adb_server_Frame_descriptor,
-        new java.lang.String[] { "Data", "Rows", "Cols", });
+        new java.lang.String[] { "Data", "Rows", "Cols", "Channels", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

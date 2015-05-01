@@ -99,6 +99,7 @@ public class TcpConnection implements Runnable {
                     Log.d(TAG, "Received: " + frameMessage.getSerializedSize() + " bytes");
                     Mat frame = new Mat(frameMessage.getRows(), frameMessage.getCols(),
                             CvType.CV_8UC1);
+                    frame.reshape(frameMessage.getChannels());
                     frame.put(0, 0, frameMessage.getData().toByteArray());
                     for (FrameListener listener : mFrameListeners) {
                         listener.onFrameReceived(frame);

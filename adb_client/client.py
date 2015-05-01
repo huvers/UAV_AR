@@ -28,7 +28,8 @@ class AdbClient(object):
         """Sends an OpenCV Mat over the socket."""
         frame_message = frame_pb2.Frame()
         frame_message.data = str(frame.data)
-        frame_message.rows, frame_message.cols = frame.shape
+        (frame_message.rows, frame_message.cols,
+         frame_message.channels) = frame.shape
         self.socket.send(delimit_protobuf(frame_message))
 
 

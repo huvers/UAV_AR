@@ -7,4 +7,5 @@ message Frame {
     optional bytes data = 1;
     optional int32 rows = 2;
     optional int32 cols = 3;
+    optional int32 channels = 4;
 }
