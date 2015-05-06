@@ -1,10 +1,15 @@
 package com.github.huvers.adb_server;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+
+import com.github.huvers.adb_client.gen.ControlProtos.DroneControl.Command;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
@@ -49,6 +54,33 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_main);
+
+        addDroneControlButtonListener(R.id.pitch_forward, Command.PITCH_FORWARD);
+        addDroneControlButtonListener(R.id.pitch_backward, Command.PITCH_BACKWARD);
+        addDroneControlButtonListener(R.id.roll_left, Command.ROLL_LEFT);
+        addDroneControlButtonListener(R.id.roll_right, Command.ROLL_RIGHT);
+        addDroneControlButtonListener(R.id.yaw_left, Command.YAW_LEFT);
+        addDroneControlButtonListener(R.id.yaw_right, Command.YAW_RIGHT);
+        addDroneControlButtonListener(R.id.increase_altitude, Command.INCREASE_ALTITUDE);
+        addDroneControlButtonListener(R.id.decrease_altitude, Command.DECREASE_ALTITUDE);
+        addDroneControlButtonListener(R.id.takeoff, Command.TAKEOFF);
+        addDroneControlButtonListener(R.id.land, Command.LAND);
+        addDroneControlButtonListener(R.id.leap, Command.LEAP);
+        addDroneControlButtonListener(R.id.picture, Command.PICTURE);
+        addDroneControlButtonListener(R.id.emergency, Command.EMERGENCY);
+    }
+
+
+
+    private void addDroneControlButtonListener(int id, final Command command) {
+        final Button button = (Button) findViewById(id);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d(TAG, "Sending command to drone: " + command);
+                // TODO: Send data to the server
+            }
+        });
     }
 
     @Override
@@ -70,7 +102,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onFrameReceived(Mat frame) {
-                mBitmap = Bitmap.createBitmap(frame.cols(), frame.rows(), Bitmap.Config.ARGB_8888);
+                mBitmap = Bitmap.createBitmap(frame.rows(), frame.cols(), Bitmap.Config.RGB_565);
                 Utils.matToBitmap(frame, mBitmap);
 
                 runOnUiThread(new Runnable() {

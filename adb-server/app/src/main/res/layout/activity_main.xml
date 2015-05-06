@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+                android:id="@+id/droneControlLayout">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -10,4 +11,131 @@
         android:id="@+id/cameraView"
         android:layout_gravity="center_horizontal"/>
 
-</LinearLayout>
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_above="@+id/functionLayout"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/directionsLayout"
+        android:columnCount="3"
+        android:rowCount="7">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/yaw_left"
+            android:id="@+id/yaw_left"
+            android:layout_row="0"
+            android:layout_column="0"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pitch_forward"
+            android:id="@+id/pitch_forward"
+            android:layout_row="0"
+            android:layout_column="1"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/yaw_right"
+            android:id="@+id/yaw_right"
+            android:layout_row="0"
+            android:layout_column="2"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/roll_left"
+            android:id="@+id/roll_left"
+            android:layout_row="2"
+            android:layout_column="0"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pitch_backward"
+            android:id="@+id/pitch_backward"
+            android:layout_row="3"
+            android:layout_column="1"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/roll_right"
+            android:id="@+id/roll_right"
+            android:layout_row="2"
+            android:layout_column="2"/>
+
+    </GridLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/functionLayout">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/emergency"
+            android:id="@+id/emergency"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/picture"
+            android:id="@+id/picture"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/take_off"
+            android:id="@+id/takeoff"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/land"
+            android:id="@+id/land"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/leap"
+            android:id="@+id/leap"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/directionsLayout"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/directionsLayout"
+        android:layout_alignTop="@+id/directionsLayout"
+        android:id="@+id/altitude">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/increase_altitude"
+            android:id="@+id/increase_altitude"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/decrease_altitude"
+            android:id="@+id/decrease_altitude"/>
+    </LinearLayout>
+
+</RelativeLayout>

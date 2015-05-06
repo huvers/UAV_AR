@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">adb-server</string>
+    <string name="emergency">Emergency</string>
+    <string name="picture">Picture</string>
+    <string name="yaw_left">Yaw Left</string>
+    <string name="pitch_forward">Pitch Forward</string>
+    <string name="yaw_right">Yaw Right</string>
+    <string name="roll_left">Roll Left</string>
+    <string name="pitch_backward">Pitch Backward</string>
+    <string name="roll_right">Roll Right</string>
+    <string name="take_off">Take Off</string>
+    <string name="land">Land</string>
+    <string name="leap">Leap</string>
+    <string name="increase_altitude">Increase Altitude</string>
+    <string name="decrease_altitude">Decrease Altitude</string>
 </resources>
