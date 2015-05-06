@@ -1,0 +1,24 @@
+package adb_client;
+
+option java_package = "com.github.huvers.adb_client.gen";
+option java_outer_classname = "ControlProtos";
+
+message DroneControl {
+    enum Command {
+        UNKNOWN = 0;
+        PITCH_FORWARD = 1;
+        PITCH_BACKWARD = 2;
+        ROLL_LEFT = 3;
+        ROLL_RIGHT = 4;
+        YAW_LEFT = 5;
+        YAW_RIGHT = 6;
+        INCREASE_ALTITUDE = 7;
+        DECREASE_ALTITUDE = 8;
+        TAKEOFF = 9;
+        LAND = 10;
+        LEAP = 11;
+        PICTURE = 12;
+        EMERGENCY = 13;
+    };
+    optional Command command = 1 [default = UNKNOWN];
+}

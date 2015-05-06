@@ -13,7 +13,7 @@ def main():
     subprocess.call(['protoc',
                      '--java_out={}'.format(java_out),
                      '--python_out={}'.format(python_out),
-                     'frame.proto'])
+                     'frame.proto', 'control.proto'])
 
 if __name__ == '__main__':
     main()
