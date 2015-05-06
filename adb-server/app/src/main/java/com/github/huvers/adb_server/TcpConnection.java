@@ -12,6 +12,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -113,6 +114,21 @@ public class TcpConnection implements Runnable {
             }
         }
     };
+
+    private void writeToClient(final byte[] data) {
+        new Thread(
+            new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Log.d(TAG, "Writing to client");
+                        client.getOutputStream().write(data);
+                    } catch (IOException e) {
+                        Log.d(TAG, "" + e.getStackTrace());
+                    }
+                }
+            }).start();
+    }
 
     public void closeAll() {
         try {
