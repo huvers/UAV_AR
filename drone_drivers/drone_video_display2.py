@@ -53,7 +53,7 @@ class DroneVideoDisplay(QtGui.QMainWindow):
     DisconnectedMessage = 'Disconnected'
     UnknownMessage = 'Unknown Status'
     
-    def __init__(self):
+    def __init__(self, adbClient):
         # Construct the parent class
         super(DroneVideoDisplay, self).__init__()
 
@@ -102,6 +102,9 @@ class DroneVideoDisplay(QtGui.QMainWindow):
         self.cvimage = None
         
         self.bridge = CvBridge()
+        
+        # Handles sending data to the Android device
+        self.adbClient = adbClient
 
 
     # Called every CONNECTION_CHECK_PERIOD ms, if we haven't received anything since the last callback, will assume we are having network troubles and display a message in the status bar
@@ -133,7 +136,8 @@ class DroneVideoDisplay(QtGui.QMainWindow):
                             
                     cv_image = self.bridge.imgmsg_to_cv2(self.image, "bgr8")
                     cv2.circle(cv_image, (50,50), 10, 255)
-                    
+                    cv_image = cv2.resize(cv_image, (640, 480))
+                    self.adbClient.send_frame(cv_image)
                     (rows,cols,channels) = cv_image.shape
                     image = QtGui.QPixmap.fromImage(QtGui.QImage(cv_image.data, cols, rows, QtGui.QImage.Format_RGB888))
             finally:

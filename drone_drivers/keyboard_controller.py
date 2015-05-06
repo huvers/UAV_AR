@@ -38,8 +38,8 @@ class KeyMapping(object):
 
 # Our controller definition, note that we extend the DroneVideoDisplay class
 class KeyboardController(DroneVideoDisplay):
-    def __init__(self):
-        super(KeyboardController,self).__init__()
+    def __init__(self, adbClient):
+        super(KeyboardController,self).__init__(adbClient)
         
         self.pitch = 0
         self.roll = 0
@@ -162,9 +162,7 @@ class KeyboardController(DroneVideoDisplay):
 
             controller.SetCommand(self.roll, self.pitch, self.yaw_velocity, self.z_velocity)
 
-
-# Setup the application
-if __name__=='__main__':
+def main(adbClient):
     import sys
     # Firstly we setup a ros node, so that we can communicate with the other packages
     rospy.init_node('ardrone_keyboard_controller')
@@ -172,7 +170,7 @@ if __name__=='__main__':
     # Now we construct our Qt Application and associated controllers and windows
     app = QtGui.QApplication(sys.argv)
     controller = BasicDroneController()
-    display = KeyboardController()
+    display = KeyboardController(adbClient)
 
     display.show()
     rospy.Subscriber('text_data', String, display.callback)
