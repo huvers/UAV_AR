@@ -30,6 +30,13 @@ from PySide import QtCore, QtGui
 
 from std_msgs.msg import String
 
+# For HoG detection
+import sys
+from PIL import Image, ImageDraw
+import numpy as np
+hog = cv2.HOGDescriptor()
+hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
+hogParams = {'winStride': (8, 8), 'padding': (32, 32), 'scale': 1.05}
 
 # Some Constants
 CONNECTION_CHECK_PERIOD = 250 #ms
@@ -137,6 +144,13 @@ class DroneVideoDisplay(QtGui.QMainWindow):
                     cv_image = self.bridge.imgmsg_to_cv2(self.image, "rgb8")
                     #cv2.circle(cv_image, (50,50), 10, 255)
                     #cv_image = cv2.resize(cv_image, (640, 480))
+                    result = hog.detectMultiScale(cv_image, **hogParams)
+                    for i in range(len(result[0])):
+                        rect = result[0][i]
+                        top_left = (rect[0], rect[1])
+                        bottom_right = (rect[0]+rect[2], rect[1]+rect[3])
+                        cv2.rectangle(cv_image, top_left, bottom_right, 255, 2)
+
                     self.adbClient.send_frame(cv_image)
                     (rows,cols,channels) = cv_image.shape
                     image = QtGui.QPixmap.fromImage(QtGui.QImage(cv_image.data, cols, rows, QtGui.QImage.Format_RGB888))
